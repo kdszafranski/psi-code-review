@@ -34,15 +34,15 @@ router.post('/', function (req,res){
 router.get('/', function(req,res){
   console.log('in get shelf request');
   Shelf.find().then(function(data){
-    console.log('data-->', data);
+    // console.log('data-->', data);
     res.send(data);
   });
 });
 
 
-router.delete('/:id', function (req,res){
-  console.log("in delete shelf request", req.params.id);
-  if(req.isAuthenticated()) {
+router.delete('/:id/:name', function (req,res){
+  console.log("in delete shelf request", req.params.id, 'name:', req.params.name, 'user:', req.user.username);
+  if(req.isAuthenticated() && req.user.username===req.params.name) {
     Shelf.remove({_id:req.params.id}).then(function(){
       res.sendStatus(200);
     });

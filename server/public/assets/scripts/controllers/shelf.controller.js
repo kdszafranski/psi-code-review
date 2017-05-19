@@ -34,10 +34,10 @@ myApp.controller('shelfController', ['$http', '$location', function($http, $loca
 
 
 
-vm.deleteItem = function (id){
+vm.deleteItem = function (id, name){
   $http({
     method: 'DELETE',
-    url: '/shelf/'+ id
+    url: '/shelf/'+ id + '/' + name,
   }).then(function(response){
     console.log("Item deleted:", response);
     vm.getItems();

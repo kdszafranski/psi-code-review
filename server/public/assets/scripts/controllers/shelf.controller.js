@@ -35,14 +35,27 @@ myApp.controller('shelfController', ['$http', '$location', function($http, $loca
 
 
 vm.deleteItem = function (id, name){
-  $http({
-    method: 'DELETE',
-    url: '/shelf/'+ id + '/' + name,
-  }).then(function(response){
-    console.log("Item deleted:", response);
-    vm.getItems();
-  });
-};
+  if(confirm("Are you sure you wanna delete this item?")) {
+    $http({
+      method: 'DELETE',
+      url: '/shelf/'+ id + '/' + name,
+      // url: '/shelf?thing=123&name=bob' // querystring example
+    }).then(
+      function(response){
+        // if(response.status)
+        console.log("Item deleted:", response);
+        vm.getItems();
+      },
+      function(response) {
+        // if(response.status == 403) {
+        //
+        // }
+        console.log('response ', response);
+        alert(response.data.message);
+      });
+
+  }
+  };
 
 
 }]);//end shelfController

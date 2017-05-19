@@ -31,12 +31,21 @@ router.post('/', function (req,res){
   }
 });
 
-router.get('/', function(req,res){
-  console.log('in get shelf request');
-  Shelf.find().then(function(data){
-    // console.log('data-->', data);
-    res.send(data);
-  });
+// /shelf/millie  optional URL parameter uses ?
+router.get('/:username?', function(req,res){
+  console.log('in get shelf request', req.params.username);
+  if(req.params.username) {
+    Shelf.find({userName: req.params.username}).then(function(data){
+      // console.log('data-->', data);
+      res.send(data);
+    });
+  } else {
+    Shelf.find({}).then(function(data){
+      // console.log('data-->', data);
+      res.send(data);
+    });
+  }
+
 });
 
 
@@ -47,7 +56,10 @@ router.delete('/:id/:name', function (req,res){
       res.sendStatus(200);
     });
   } else {
-    res.send("not authorized to delete");
+    var error = {
+      message: "Oops! You can't delete that!"
+    }
+    res.status(403).send(error);
   }
 });
 

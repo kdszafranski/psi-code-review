@@ -1,6 +1,6 @@
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
-var User = require('../models/user');
+var User = require('../models/user.model');
 
 // Store this user's unique id in the session for later reference
 // Only runs during authentication
@@ -19,7 +19,7 @@ passport.deserializeUser(function(id, done) {
       done(err);
     }
 
-    console.log('deserialized: ', user);
+    console.log('-----------------------------------------------\ndeserialized: ', user.id);
     done(null, user);
   });
 });
@@ -36,11 +36,14 @@ passport.use('local', new localStrategy({
         throw err;
       }
 
+      // user variable passed to us from Mongoose if it found a match to findOne() above
       if(!user) {
         // user not found
+        console.log('userStrategy.js :: no user found');
         return done(null, false, {message: 'Incorrect credentials.'});
       } else {
         // found user! Now check their given password against the one stored in the DB
+        // comparePassword() is defined in the schema/model file!
         user.comparePassword(password, function(err, isMatch) {
           if(err) {
             throw err;
@@ -48,9 +51,11 @@ passport.use('local', new localStrategy({
 
           if(isMatch) {
             // all good, populate user object on the session through serializeUser
+            console.log('userStrategy.js :: all good');
             return(done(null, user));
           } else {
             // no good.
+            console.log('userStrategy.js :: password incorrect');
             done(null, false, {message: 'Incorrect credentials.'});
           }
         });

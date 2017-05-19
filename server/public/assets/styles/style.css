@@ -39,3 +39,12 @@
 .btn-danger{
     margin-left: 10px;
 }
+
+img{
+  width: auto;
+  height: 200px;
+}
+
+.shelf{
+  text-align: center;
+}

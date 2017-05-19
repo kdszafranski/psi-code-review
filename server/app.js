@@ -26,7 +26,7 @@ app.use(session({
    key: 'user', // this is the name of the req.variable. 'user' is convention, but not required
    resave: 'true',
    saveUninitialized: false,
-   cookie: { maxage: 60000, secure: false }
+   cookie: { maxage: 1000000, secure: false }
 }));
 
 // start up passport sessions

@@ -7,29 +7,20 @@
     <button class="btn btn-default" ng-click="uc.logout()">Log Out</button>
 </div>
 <div ng-controller="shelfController as sc">
-  <div>
+  <div class="container">
     <input placeholder="description" ng-model="sc.descriptionIn">
     <input placeholder="imgUrl" ng-model="sc.imgUrlIn">
     <button type="button" ng-click="sc.addShelfItem(uc.userName)">add item</button>
     <!-- <button type="button" ng-click=""></button> -->
   </div>
-
   <div class="container" ng-controller="shelfController as sc">
-    <div ng-repeat="item in sc.allItems">
-      {{item.userName}}
-      {{item.description}}
-      {{item.imgUrl}}
+    <div ng-repeat="item in sc.allItems" class="col-xs-6 col-sm-4 col-md-3 shelf row">
+      <img src="{{item.imgUrl}}"><br>
+      Placed by: {{item.userName}}<br>
+      Item: {{item.description}}<br>
       <button type="button" ng-click="sc.deleteItem(item._id)">Delete</button>
     </div>
   </div>
-  <!-- <div id="outputDiv"> -->
-    <!-- Shelf Items go here-->
-    <!-- <div ng-controller="shelfController as sc" ng-repeat="item in sc.allItems">
-      {{item.userName}}
-      {{item.description}}
-      {{item.imgUrl}}
-    </div> -->
 
-  <!-- </div> -->
 
 </div>

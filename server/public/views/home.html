@@ -18,10 +18,10 @@
       </div>
     </form>
     <div class="container" ng-controller="shelfController as sc">
-      <div ng-repeat="item in sc.allItems">
-        {{item.userName}}
-        {{item.description}}
-        {{item.imgUrl}}
+      <div ng-repeat="item in sc.allItems" class="col-xs-6 col-sm-4 col-md-3">
+        <img ng-src="{{item.imgUrl}}"><br>
+        Placed by: {{item.userName}}<br>
+        Item: {{item.description}}<br>
       </div>
     </div>
 </div>
